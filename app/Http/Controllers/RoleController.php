@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
-class UserController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::all();
-        $roles = Role::pluck('name', 'name')->all();
-        return view('usuarios.index', compact('users', 'roles'));
+        $roles = Role::all();
+        $permissions = Permission::all();
+        return view('roles.index', compact('roles', 'permissions'));
     }
 
     /**
@@ -33,19 +33,15 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required',
-            'roles' => 'required',
+        ], [], [
+            'name' => 'nombre',
         ]);
 
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->save();
-        $user->assignRole($request->input('roles'));
+        $role = Role::create(['name' => $request->input('name')]);
 
-        return redirect()->route('usuarios.index');
+        $role->syncPermissions($request->input('permissions'));
+
+        return redirect()->route('roles.index');
     }
 
     /**

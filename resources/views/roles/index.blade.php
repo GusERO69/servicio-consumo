@@ -33,7 +33,7 @@
                                                 <h2 class="fw-bolder">Nuevo Usuario</h2>
                                             </div>
                                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                                                <form method="POST" action="{{ route('usuarios.store') }}"
+                                                <form method="POST" action="{{ route('roles.store') }}"
                                                     id="kt_modal_add_user_form" class="form"
                                                     enctype="multipart/form-data">
                                                     @csrf
@@ -51,27 +51,15 @@
                                                                 placeholder="" value="{{ old('name') }}" />
                                                         </div>
                                                         <div class="fv-row mb-7">
-                                                            <label class="required fw-bold fs-6 mb-2">Email</label>
-                                                            <input type="email" name="email"
-                                                                class="form-control form-control-solid mb-3 mb-lg-0"
-                                                                placeholder="" value="{{ old('email') }}" />
-                                                        </div>
-                                                        <div class="fv-row mb-7">
-                                                            <label class="required fw-bold fs-6 mb-2">Contraseña</label>
-                                                            <input type="password" name="password"
-                                                                class="form-control form-control-solid mb-3 mb-lg-0"
-                                                                placeholder="" value="" />
-                                                        </div>
-                                                        <div class="fv-row mb-7">
-                                                            <select name="roles" class="form-control form-control-solid"
-                                                                data-control="select2"
-                                                                data-placeholder="Seleccione una opción">
-                                                                <option></option>
-                                                                @foreach ($roles as $role)
-                                                                    <option value="{{ $role }}">{{ $role }}
-                                                                    </option>
+                                                            <div class="fv-row mb-7">
+                                                                <label class="fw-bold fs-6 mb-2">Permisos: </label> <br>
+                                                                @foreach ($permissions as $permiso)
+                                                                    <input type="checkbox" name="permissions[]"
+                                                                        value="{{ $permiso->name }}" id="" /><span
+                                                                        class="form-check-label">{{ $permiso->name }}</span>
+                                                                    <br>
                                                                 @endforeach
-                                                            </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="text-center pt-15">
@@ -102,29 +90,18 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" style="width: 100%"
-                                id="registers">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" style="width: 100%" id="registers">
                                 <thead>
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                         <th class="min-w-125px">ID</th>
-                                        <th class="min-w-125px">NOMBRE</th>
-                                        <th class="min-w-125px">EMAIL</th>
-                                        <th class="min-w-125px">ROL</th>
+                                        <th class="min-w-125px">PERMISO</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 fw-bold">
-                                    @foreach ($users as $user)
+                                    @foreach ($roles as $rol)
                                         <tr>
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>
-                                                @if (!empty($user->getRoleNames()))
-                                                    @foreach ($user->getRoleNames() as $rolName)
-                                                        <h5><span class="badge badge-dark">{{ $rolName }}</span></h5>
-                                                    @endforeach
-                                                @endif
-                                            </td>
+                                            <td>{{ $rol->id }}</td>
+                                            <td>{{ $rol->name }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -113,10 +113,11 @@
                                     <span class="menu-section text-muted text-uppercase fs-8 ls-1">MÓDULOS</span>
                                 </div>
                             </div>
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('usuarios.index') }}" data-bs-toggle="tooltip"
-                                    data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                    {{-- <span class="menu-icon">
+                            @can('ver-usuario')
+                                <div class="menu-item">
+                                    <a class="menu-link" href="{{ route('usuarios.index') }}" data-bs-toggle="tooltip"
+                                        data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        {{-- <span class="menu-icon">
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
@@ -129,15 +130,18 @@
                                             </svg>
                                         </span>
                                     </span> --}}
-                                    <span class="menu-title">Usuarios</span>
-                                </a>
-                            </div>
-                            <div class="menu-item">
-                                <a class="menu-link" href="{{ route('roles.index') }}" data-bs-toggle="tooltip"
-                                    data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                    <span class="menu-title">Roles</span>
-                                </a>
-                            </div>
+                                        <span class="menu-title">Usuarios</span>
+                                    </a>
+                                </div>
+                            @endcan
+                            @can('ver-rol')
+                                <div class="menu-item">
+                                    <a class="menu-link" href="{{ route('roles.index') }}" data-bs-toggle="tooltip"
+                                        data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+                                        <span class="menu-title">Roles</span>
+                                    </a>
+                                </div>
+                            @endcan
                         </div>
                         <!--end::Menu-->
                     </div>

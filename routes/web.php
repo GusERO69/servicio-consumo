@@ -17,6 +17,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     // Route::resource('talentos', TalentsController::class);
     Route::resource('dashboard', DashboardController::class);
-    Route::resource('usuarios', UserController::class);
-    Route::resource('roles', RoleController::class);
+    Route::resource('usuarios', UserController::class)->middleware('permission:ver-usuario');
+    Route::resource('roles', RoleController::class)->middleware('permission:ver-rol');
 });

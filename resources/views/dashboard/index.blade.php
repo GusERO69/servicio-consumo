@@ -7,6 +7,30 @@
                 <div class="col-xl-8">
                     <div class="card h-xl-100">
                         <div class="card-body">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" style="width: 100%" id="registers">
+                                <thead>
+                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+                                        <th class="min-w-125px">ID</th>
+                                        <th class="min-w-125px">ID_USUARIO</th>
+                                        <th class="min-w-125px">VOLTAJE</th>
+                                        <th class="min-w-125px">CORRIENTE</th>
+                                        <th class="min-w-125px">POTENCIA(W)</th>
+                                        <th class="min-w-125px">REGISTRO</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-600 fw-bold">
+                                    @foreach ($reading as $read)
+                                        <tr>
+                                            <td>{{ $read->id }}</td>
+                                            <td>{{ $read->user_id }}</td>
+                                            <td>{{ $read->voltage }}</td>
+                                            <td>{{ $read->current }}</td>
+                                            <td>{{ $read->power }}</td>
+                                            <td>{{ $read->timestamp }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

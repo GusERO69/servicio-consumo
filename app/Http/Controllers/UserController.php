@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lectura;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $reading = Lectura::all();
-        return view('dashboard.index', compact('reading'));
+        return view('usuarios.index');
     }
 
     /**

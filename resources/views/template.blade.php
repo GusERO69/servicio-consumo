@@ -122,9 +122,9 @@
                                         <!--end::Svg Icon-->
                                     </span>
                                     <span class="menu-title">Dashboards</span>
-                                    <span class="menu-arrow"></span>
+                                    {{-- <span class="menu-arrow"></span> --}}
                                 </span>
-                                <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                {{-- <div class="menu-sub menu-sub-accordion menu-active-bg">
                                     <div class="menu-item">
                                         <a class="menu-link" href="../../demo1/dist/index.html">
                                             <span class="menu-bullet">
@@ -133,11 +133,11 @@
                                             <span class="menu-title">Multipurpose</span>
                                         </a>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="menu-item">
                                 <div class="menu-content pt-8 pb-0">
-                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">Layout</span>
+                                    <span class="menu-section text-muted text-uppercase fs-8 ls-1">MÓDULOS</span>
                                 </div>
                             </div>
                             <div class="menu-item">
@@ -146,8 +146,7 @@
                                     title="Build your layout and export HTML for server side integration"
                                     data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
                                     data-bs-placement="right">
-                                    <span class="menu-icon">
-                                        <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
+                                    {{-- <span class="menu-icon">
                                         <span class="svg-icon svg-icon-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
@@ -159,9 +158,8 @@
                                                     fill="currentColor" />
                                             </svg>
                                         </span>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                    <span class="menu-title">Layout Builder</span>
+                                    </span> --}}
+                                    <span class="menu-title">Usuarios</span>
                                 </a>
                             </div>
                         </div>
@@ -366,6 +364,14 @@
     <script src="assets/js/custom/utilities/modals/users-search.js"></script>
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
+    <script>
+        $(document).ready(function() {
+            $('#registers').DataTable({
+                scrollX: true,
+                order: [],
+            });
+        });
+    </script>
 </body>
 <!--end::Body-->
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,4 +16,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     // Route::resource('talentos', TalentsController::class);
     Route::resource('dashboard', DashboardController::class);
+    Route::resource('usuarios', UserController::class);
 });

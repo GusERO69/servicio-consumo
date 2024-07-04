@@ -52,6 +52,71 @@
                     </div>
                 </div>
             </div>
+            <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                <div class="col-xl-12">
+                    <div class="card h-xl-100">
+                        <div class="card-body">
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var options = {
+            series: [{
+                    name: 'Lectura',
+                    data: @json($data)
+                },
+                // {
+                //     name: 'Revenue',
+                //     data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                // }
+            ],
+            chart: {
+                type: 'bar',
+                height: 350,
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded',
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: @json($reading->pluck('timestamp'))
+            },
+            yaxis: {
+                title: {
+                    text: '$ (thousands)'
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    formatter: function(val) {
+                        return val.toFixed(2) + " kW"; // Formato personalizado para el tooltip
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    });
+</script>

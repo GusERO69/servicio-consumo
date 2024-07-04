@@ -12,8 +12,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $reading = Lectura::all();
-        return view('dashboard.index', compact('reading'));
+        $reading = Lectura::take(10)->get();
+        $data = $reading->pluck('power')->toArray();
+        return view('dashboard.index', compact('reading', 'data'));
     }
 
     /**

@@ -61,10 +61,46 @@
                     </div>
                 </div>
             </div>
+            <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+                <div class="col-md-4">
+                    <form id="formPredecir" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success">Predecir</button>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <span id="resultadoPrediccion"></span>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#formPredecir').submit(function(event) {
+            event.preventDefault();
+
+            let userId = "{{ $user->id }}"
+            // console.log(userId);
+            // Realizar la solicitud HTTP a Flask
+            $.ajax({
+                type: 'GET',
+                url: 'http://127.0.0.1:5000/predict/' + userId,
+                success: function(response) {
+                    console.log(response);
+                    $('#resultadoPrediccion').text('Predicción: ' + response.prediction +
+                        ' W');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al obtener la predicción:', error);
+                    $('#resultadoPrediccion').text('Error al obtener la predicción.');
+                }
+            });
+        });
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var options = {

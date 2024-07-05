@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lectura;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -12,9 +13,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $reading = Lectura::take(10)->get();
+        $user = Auth::user();
+        $reading = Lectura::take(5)->get();
         $data = $reading->pluck('power')->toArray();
-        return view('dashboard.index', compact('reading', 'data'));
+        return view('dashboard.index', compact('reading', 'data', 'user'));
     }
 
     /**

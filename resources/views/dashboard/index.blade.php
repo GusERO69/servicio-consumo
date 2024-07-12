@@ -63,7 +63,7 @@
             </div>
             <div class="row g-5 g-xl-10 mb-5 mb-xl-10">
                 <div class="col-md-4">
-                    <form id="formPredecir" method="POST">
+                    <form id="formPredecir" method="POST" action="{{ route('dashboard.store') }}">
                         @csrf
                         <button type="submit" class="btn btn-success">Predecir</button>
                     </form>
@@ -82,16 +82,21 @@
         $('#formPredecir').submit(function(event) {
             event.preventDefault();
 
-            let userId = "{{ $user->id }}"
-            // console.log(userId);
-            // Realizar la solicitud HTTP a Flask
+            // Realizar la solicitud HTTP a Laravel
             $.ajax({
-                type: 'GET',
-                url: 'http://127.0.0.1:5000/predict/' + userId,
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(), // Envía los datos del formulario
                 success: function(response) {
-                    console.log(response);
-                    $('#resultadoPrediccion').text('Predicción: ' + response.prediction +
-                        ' W');
+                    console.log(response); // Verifica la respuesta en la consola
+
+                    // Manejar la respuesta JSON
+                    if (response.prediction !== undefined) {
+                        $('#resultadoPrediccion').text('Predicción: ' + response
+                            .prediction + ' W');
+                    } else {
+                        $('#resultadoPrediccion').text('Error al obtener la predicción.');
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al obtener la predicción:', error);

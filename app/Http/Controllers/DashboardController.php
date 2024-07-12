@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Lectura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\ConnectionException;
 
 class DashboardController extends Controller
 {
@@ -32,7 +34,25 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userId = auth()->id();
+
+        try {
+            $response = Http::timeout(120)->get('http://127.0.0.1:5000/predict/' . $userId);
+
+            if ($response->successful()) {
+                return response()->json([
+                    'prediction' => $response->json()
+                ]);
+            } else {
+                return response()->json([
+                    'error' => 'Error al obtener la predicción desde Flask.'
+                ], 500);
+            }
+        } catch (ConnectionException $e) {
+            return response()->json([
+                'error' => 'Timeout al conectar con Flask.'
+            ], 500);
+        }
     }
 
     /**

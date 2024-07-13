@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lectura;
+use App\Models\Results;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -40,8 +42,31 @@ class DashboardController extends Controller
             $response = Http::timeout(120)->get('http://127.0.0.1:5000/predict/' . $userId);
 
             if ($response->successful()) {
+                $prediction = $response->json();
+                $results = Results::all();
+
+                $sumasPorFecha = [];
+
+                // Iterar sobre los resultados para sumar las predicciones por fecha
+                foreach ($results as $result) {
+                    // Calcular el valor ajustado antes de sumar
+                    $valorAjustado = ($result->prediction / 1000) * 0.42;
+
+                    // Obtener la fecha de forma solo de fecha sin la hora
+                    $fecha = Carbon::parse($result->date_week)->toDateString(); // Ajusta según el formato de tu fecha
+
+                    if (!isset($sumasPorFecha[$fecha])) {
+                        $sumasPorFecha[$fecha] = 0;
+                    }
+
+                    // Sumar el valor ajustado
+                    $sumasPorFecha[$fecha] += $valorAjustado;
+                }
+
                 return response()->json([
-                    'prediction' => $response->json()
+                    'prediction' => $prediction,
+                    'results' => $results,
+                    'sumasPorFecha' => $sumasPorFecha
                 ]);
             } else {
                 return response()->json([

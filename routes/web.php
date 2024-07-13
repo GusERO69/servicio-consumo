@@ -19,4 +19,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('usuarios', UserController::class)->middleware('permission:ver-usuario');
     Route::resource('roles', RoleController::class)->middleware('permission:ver-rol');
+
+    // Route::get('')
 });

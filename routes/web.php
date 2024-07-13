@@ -20,5 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('usuarios', UserController::class)->middleware('permission:ver');
     Route::resource('roles', RoleController::class)->middleware('permission:ver');
 
+    Route::get('getData', [DashboardController::class, 'getData'])->name('getData');
+
     // Route::get('')
 });

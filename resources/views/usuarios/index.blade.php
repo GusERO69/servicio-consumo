@@ -142,7 +142,7 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button class="btn btn-danger delete-btn"><i
-                                                                        class="fa-regular fa-trash-can"></i></button>
+                                                                        class="fas fa-trash"></i></button>
                                                             </form>
                                                         </div>
                                                     </div>

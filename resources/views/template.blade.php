@@ -136,14 +136,14 @@
                                     </a>
                                 </div>
                             @endcan
-                            @can('ver')
+                            {{-- @can('ver')
                                 <div class="menu-item">
                                     <a class="menu-link" href="{{ route('roles.index') }}" data-bs-toggle="tooltip"
                                         data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-title">Roles</span>
                                     </a>
                                 </div>
-                            @endcan
+                            @endcan --}}
                         </div>
                         <!--end::Menu-->
                     </div>
@@ -227,13 +227,11 @@
                                                 </div>
                                                 <!--end::Avatar-->
                                                 <!--begin::Username-->
-                                                <div class="d-flex flex-column">
+                                                {{-- <div class="d-flex flex-column">
                                                     <div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-                                                        {{-- <span
-                                                            class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span> --}}
                                                     </div>
                                                     <span class="fw-bold text-muted">max@kt.com</span>
-                                                </div>
+                                                </div> --}}
                                                 <!--end::Username-->
                                             </div>
                                         </div>
@@ -242,10 +240,10 @@
                                         <div class="separator my-2"></div>
                                         <!--end::Menu separator-->
                                         <!--begin::Menu item-->
-                                        <div class="menu-item px-5">
+                                        {{-- <div class="menu-item px-5">
                                             <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My
                                                 Profile</a>
-                                        </div>
+                                        </div> --}}
                                         <!--end::Menu item-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-5">
@@ -345,12 +343,12 @@
     <!--end::Page Custom Javascript-->
     <!--end::Javascript-->
     <script>
-        $(document).ready(function() {
-            $('#registers').DataTable({
-                scrollX: true,
-                order: [],
-            });
-        });
+        // $(document).ready(function() {
+        //     $('#registers').DataTable({
+        //         scrollX: true,
+        //         order: [],
+        //     });
+        // });
     </script>
 </body>
 <!--end::Body-->

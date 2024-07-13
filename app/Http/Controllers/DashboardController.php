@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\ConnectionException;
+use Yajra\DataTables\DataTables;
 
 class DashboardController extends Controller
 {
@@ -80,35 +81,15 @@ class DashboardController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function getData(Request $request)
     {
-        //
-    }
+        if ($request->ajax()) {
+            $readings = Results::where('user_id', auth()->user()->id)->select('*');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+            return DataTables::of($readings)
+                ->make(true);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('dashboard.index');
     }
 }

@@ -110,6 +110,7 @@
                                         <th class="min-w-125px">NOMBRE</th>
                                         <th class="min-w-125px">EMAIL</th>
                                         <th class="min-w-125px">ROL</th>
+                                        <th class="min-w-125px">ACCIONES</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 fw-bold">
@@ -124,6 +125,28 @@
                                                         <h5><span class="badge badge-dark">{{ $rolName }}</span></h5>
                                                     @endforeach
                                                 @endif
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div style="width: auto; height: auto;">
+                                                            <a href="{{ route('usuarios.edit', ['usuario' => $user->id]) }}"
+                                                                class="btn btn-warning"><i class="fas fa-pen"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div style="width: auto; height: auto;">
+                                                            <form id="deleteForm"
+                                                                action="{{ route('usuarios.destroy', ['usuario' => $user->id]) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button class="btn btn-danger delete-btn"><i
+                                                                        class="fa-regular fa-trash-can"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -94,7 +94,7 @@
                                 <thead>
                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                         <th class="min-w-125px">ID</th>
-                                        <th class="min-w-125px">PERMISO</th>
+                                        <th class="min-w-125px">ROL</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-600 fw-bold">

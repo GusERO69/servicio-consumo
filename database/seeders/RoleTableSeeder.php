@@ -14,9 +14,9 @@ class RoleTableSeeder extends Seeder
     public function run(): void
     {
         $permisos = [
-            //para el comando php artisan db:seed --class=RoleSeeder
-            'ver-usuario',
-            'ver-rol'
+            //para el comando php artisan db:seed --class=RoleTableSeeder
+            'ver',
+            // 'ver-rol'
         ];
         foreach ($permisos as $permiso) {
             Permission::create(['name' => $permiso]);

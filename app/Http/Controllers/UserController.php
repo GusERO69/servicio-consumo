@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -59,24 +60,45 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
+        return view('usuarios.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $request->validate([
+            // 'image' => 'nullable|image|mimes:jpeg,png,jpg|max:10240',
+            'name' => 'required',
+            // 'lastname' => 'required',
+            // 'email' => 'required|email|unique:users,email,' . $user->id,
+            // 'password' => 'string',
+            // 'roles' => 'required',
+        ]);
+
+        $input = $request->all();
+
+        $user->update($input);
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
+
+        $user->assignRole($request->input('roles'));
+        return redirect()->route('usuarios.index', ['language' => app()->getLocale()]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('usuarios.index');
     }
 }
